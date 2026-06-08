@@ -1,56 +1,29 @@
-name: Daily AI News - Telegram
+name: Daily AI News
 
-  on:
-    schedule:
-      - cron: '0 0 * * *'
-    workflow_dispatch:
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
-  jobs:
-    daily-summary:
-      runs-on: ubuntu-latest
-      permissions:
-        contents: write
-
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v6
-
-        - name: Set up Python
-          uses: actions/setup-python@v5
-          with:
-            python-version: '3.12'
-
-        - name: Install uv
-          uses: astral-sh/setup-uv@v3
-
-        - name: Install dependencies
-          run: uv sync
-
-        - name: Prepare GitHub Actions config
-          run: cp data/config.github.json data/config.json
-
-        - name: Set current date
-          run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-
-        - name: Run Horizon
-          env:
-            DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-            TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-            TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          run: uv run horizon --hours 24
-
-        - name: Send to Telegram
-          env:
-            TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-            TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          run: python scripts/telegram_send.py
-
-        - name: Deploy to GitHub Pages
-          uses: peaceiris/actions-gh-pages@v4
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: ./docs
-            keep_files: true
-            commit_message: 'Daily Summary: ${{ env.DATE }}'
-            publish_branch: gh-pages
-            enable_jekyll: true
+jobs:
+  daily-summary:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v3
+      - run: uv sync
+      - run: cp data/config.github.json data/config.json
+      - name: Run Horizon
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: uv run horizon --hours 24
+      - name: Send to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/telegram_send.py
