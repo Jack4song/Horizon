@@ -18,7 +18,7 @@ name: Daily AI News - Telegram
         - name: Set up Python
           uses: actions/setup-python@v5
           with:
-            python-version: "3.12"
+            python-version: '3.12'
 
         - name: Install uv
           uses: astral-sh/setup-uv@v3
@@ -43,8 +43,7 @@ name: Daily AI News - Telegram
           env:
             TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
             TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          run: |
-            python scripts/telegram_send.py
+          run: python scripts/telegram_send.py
 
         - name: Deploy to GitHub Pages
           uses: peaceiris/actions-gh-pages@v4
@@ -52,6 +51,6 @@ name: Daily AI News - Telegram
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_dir: ./docs
             keep_files: true
-            commit_message: "Daily Summary: ${{ env.DATE }}"
+            commit_message: 'Daily Summary: ${{ env.DATE }}'
             publish_branch: gh-pages
             enable_jekyll: true
