@@ -1,7 +1,7 @@
-"""Send generated Horizon summaries to Telegram."""
+"""Send generated Horizon summaries to Telegram using httpx."""
 import os
 import glob
-import requests
+import httpx
 
 bot_token = os.environ['TELEGRAM_BOT_TOKEN']
 chat_id = os.environ['TELEGRAM_CHAT_ID']
@@ -39,8 +39,8 @@ for filepath in files:
             'parse_mode': 'Markdown',
             'disable_web_page_preview': True
         }
-        resp = requests.post(f'{base_url}/sendMessage', data=payload, timeout=30)
-        lang = 'EN'
-        if 'zh' in filepath.lower():
-            lang = 'ZH'
-        print(f'Telegram sent {lang} chunk {i+1}/{len(chunks)}: {resp.status_code} - {resp.text[:100]}')
+        try:
+            resp = httpx.post(f'{base_url}/sendMessage', data=payload, timeout=30)
+            print(f'Sent {filepath} chunk {i+1}/{len(chunks)}: {resp.status_code} {resp.text[:100]}')
+        except Exception as e:
+            print(f'Error sending {filepath} chunk {i+1}: {e}')
