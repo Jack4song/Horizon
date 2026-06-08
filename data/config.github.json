@@ -4,9 +4,10 @@
     "provider": "deepseek",
     "model": "deepseek-chat",
     "api_key_env": "DEEPSEEK_API_KEY",
+    "base_url": "https://api.deepseek.com",
     "temperature": 0.3,
     "max_tokens": 4096,
-    "throttle_sec": 0,
+    "throttle_sec": 1,
     "analysis_concurrency": 1,
     "enrichment_concurrency": 1
   },
@@ -75,12 +76,6 @@
       {
         "name": "TechCrunch AI",
         "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
-        "enabled": true,
-        "category": "ai"
-      },
-      {
-        "name": "The Verge AI",
-        "url": "https://www.theverge.com/ai-artificial-intelligence/rss/index.xml",
         "enabled": true,
         "category": "ai"
       },
