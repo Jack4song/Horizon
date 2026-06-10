@@ -20,7 +20,7 @@ jobs:
       - run: cp data/config.github.json data/config.json
       - name: Run Horizon
         env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: uv run horizon --hours 24
       - name: Send to Telegram
         env:
