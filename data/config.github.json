@@ -1,10 +1,9 @@
 {
   "version": "1.0",
   "ai": {
-    "provider": "deepseek",
-    "model": "deepseek-chat",
-    "api_key_env": "DEEPSEEK_API_KEY",
-    "base_url": "https://api.deepseek.com/v1",
+    "provider": "gemini",
+    "model": "gemini-2.5-flash",
+    "api_key_env": "GOOGLE_API_KEY",
     "temperature": 0.3,
     "max_tokens": 4096,
     "throttle_sec": 1,
