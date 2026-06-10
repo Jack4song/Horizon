@@ -9,7 +9,8 @@
     "max_tokens": 4096,
     "throttle_sec": 1,
     "analysis_concurrency": 1,
-    "enrichment_concurrency": 1
+    "enrichment_concurrency": 1,
+    "languages": ["zh"]
   },
   "email": {
     "enabled": false,
@@ -49,6 +50,24 @@
       "min_score": 50
     },
     "rss": [
+      {
+        "name": "机器之心",
+        "url": "https://www.jiqizhixin.com/rss",
+        "enabled": true,
+        "category": "ai-zh"
+      },
+      {
+        "name": "量子位",
+        "url": "https://www.qbitai.com/rss",
+        "enabled": true,
+        "category": "ai-zh"
+      },
+      {
+        "name": "36氪",
+        "url": "https://36kr.com/feed",
+        "enabled": true,
+        "category": "tech-zh"
+      },
       {
         "name": "OpenAI Blog",
         "url": "https://openai.com/blog/rss.xml",
@@ -136,7 +155,7 @@
     }
   },
   "filtering": {
-    "ai_score_threshold": 6.0,
+    "ai_score_threshold": 4.0,
     "time_window_hours": 24
   },
   "webhook": {
