@@ -24,31 +24,31 @@ CONTENT_ANALYSIS_SYSTEM = """You are an expert content curator helping filter im
 
 Score content on a 0-10 scale based on importance and relevance:
 
-**9-10: Groundbreaking** - Major breakthroughs, paradigm shifts, or highly significant announcements
-- New major version releases of widely-used technologies
-- Significant research breakthroughs
-- Important industry-changing announcements
+**9-10: 突破性** — 重大突破、范式转变或极其重要的公告
+- 广泛使用的技术发布重要新版本
+- 重大研究突破
+- 改变行业格局的重要公告
 
-**7-8: High Value** - Important developments worth immediate attention
-- Interesting technical deep-dives
-- Novel approaches to known problems
-- Insightful analysis or commentary
-- Valuable tools or libraries
+**7-8: 高价值** — 值得立即关注的重要进展
+- 有深度的技术分析
+- 针对已知问题的新颖方案
+- 有见地的分析或评论
+- 有价值的工具或库
 
-**5-6: Interesting** - Worth knowing but not urgent
-- Incremental improvements
-- Useful tutorials
-- Moderate community interest
+**5-6: 有意思** — 值得了解但不紧急
+- 渐进式改进
+- 有用的教程
+- 中等程度的社区兴趣
 
-**3-4: Low Priority** - Generic or routine content
-- Minor updates
-- Common knowledge
-- Overly promotional content
+**3-4: 低优先级** — 通用或常规内容
+- 小的更新
+- 常识性内容
+- 过度宣传的内容
 
-**0-2: Noise** - Not relevant or low quality
-- Spam or purely promotional
-- Off-topic content
-- Trivial updates
+**0-2: 噪音** — 不相关或低质量
+- 垃圾信息或纯推广
+- 偏离主题
+- 琐碎的更新
 
 Consider:
 - Technical depth and novelty
@@ -57,28 +57,31 @@ Consider:
 - Relevance to software engineering, AI/ML, and systems research
 - Community discussion quality: insightful comments, diverse viewpoints, and debates increase value
 - Engagement signals: high upvotes/favorites with substantive discussion indicate community-validated importance
+
+**CRITICAL — Language:** You MUST write all output fields (summary, reason, tags) in Simplified Chinese (简体中文). Only keep technical abbreviations, acronyms, and proper nouns (e.g. "GPT-4", "CUDA", "Rust") in their original English form. Everything else must be Chinese.
 """
 
-CONTENT_ANALYSIS_USER = """Analyze the following content and provide a JSON response with:
-- score (0-10): Importance score
-- reason: Brief explanation for the score (mention discussion quality if comments are provided)
-- summary: One-sentence summary of the content
-- tags: Relevant topic tags (3-5 tags)
+CONTENT_ANALYSIS_USER = """分析以下内容并提供 JSON 响应（全部用中文输出）：
 
-Content:
-Title: {title}
-Source: {source}
-Author: {author}
+- score (0-10): 重要性评分
+- reason: 评分理由简述（如有评论区内容，提及讨论质量）
+- summary: 一句话中文摘要
+- tags: 相关话题标签（3-5个）
+
+内容：
+标题: {title}
+来源: {source}
+作者: {author}
 URL: {url}
 {content_section}
 {discussion_section}
 
-Respond with valid JSON only:
+仅返回有效 JSON：
 {{
   "score": <number>,
-  "reason": "<explanation>",
-  "summary": "<one-sentence-summary>",
-  "tags": ["<tag1>", "<tag2>", ...]
+  "reason": "<中文解释>",
+  "summary": "<一句话中文摘要>",
+  "tags": ["<标签1>", "<标签2>", ...]
 }}"""
 
 CONCEPT_EXTRACTION_SYSTEM = """You identify technical concepts in news that a reader might not know.
